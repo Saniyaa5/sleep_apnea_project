@@ -5,12 +5,11 @@ A smart and interactive web-based dashboard to detect and monitor sleep apnea us
 📌 Table of Contents
 
 1. [Features] 
-2. [Project Structure] 
-3. [Tech Stack] 
-4. [Model Info] 
-5. [Installation] 
-6. [Render Deployment] 
-7. [Status]
+2. [Tech Stack] 
+3. [Model Info] 
+4. [Installation] 
+5. [Render Deployment] 
+6. [Status]
 
 
 1. 🚀 Features
@@ -24,33 +23,7 @@ A smart and interactive web-based dashboard to detect and monitor sleep apnea us
  📱 Smartwatch data integration (Phase-II)
  ☁️ Cloud health record storage (Phase-II)
 
-2. 📁 Project Structure
-
-Final_sleep_apnea_project/
-├── app.py                       # Main Flask application
-├── models.py                    # SQLAlchemy database models
-├── train_model.ipynb            # Jupyter notebook for ML training
-├── sleep_apnea.db               # SQLite database
-├── naive_bayes_apnea_model.pkl  # Trained Naive Bayes model
-├── naive_bayes_scaler.pkl       # Scaler for input features
-├── render.yaml                  # Configuration for Render deployment
-├── requirements.txt             # Python dependencies
-├── README.md                    # Project documentation
-├── uploads/                     # Uploaded CSV files
-├── static/
-│   ├── images/                  # Backgrounds and logos
-│   └── *.png                    # Generated graphs
-└── templates/
-    ├── base.html                # Base layout
-    ├── index.html               # Home page
-    ├── login.html               # Login page
-    ├── register.html            # User registration
-    ├── forgot.html              # Password reset
-    ├── admin_dashboard.html     # Admin's dashboard
-    ├── patient_dashboard.html   # Patient's dashboard
-    └── report.html              # Report generation page
-
-3. 🛠️ Tech Stack
+2. 🛠️ Tech Stack
 
     Frontend: HTML5, CSS3, Bootstrap 5, Chart.js
     Backend: Python, Flask, SQLAlchemy
@@ -58,14 +31,14 @@ Final_sleep_apnea_project/
     ML Model: Naive Bayes Classifier
     Deployment:  Render
 
-4. 📊 Model Info
+3. 📊 Model Info
 
 Algorithm: Naive Bayes
 Accuracy: 75.96%`
 Input Features: Heart Rate (bpm), SpO₂ (%)
 Trained In: `train_model.ipynb`
 
-5. 🧪 Installation
+4. 🧪 Installation
 
     1. Clone the repository 
 
@@ -86,7 +59,7 @@ Trained In: `train_model.ipynb`
     python app.py
 
 
-6. 🌐 Render Deployment
+5. 🌐 Render Deployment
 
     This project is deployable for free using Render
 
@@ -112,7 +85,7 @@ Trained In: `train_model.ipynb`
 
         Render auto-detects render.yaml and deploys 🎉
 
-📌 Status
+6. 📌 Status
 
     🚧 This project is currently under active development.
 
