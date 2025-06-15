@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("{{ url_for('static', filename='images/admin.png') }}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .overlay-wrapper {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .background-overlay {
+        background-color: rgba(0, 0, 0, 0.4); /* darker overlay */
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+        color: #ffffff;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 35px 30px;
+        animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    label {
+        color: #ffffff;
+        font-weight: 500;
+    }
+
+    input[type="text"], input[type="file"] {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(4px);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+        outline: none;
+        border-color: #00aaff;
+        box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+    }
+
+    .btn-primary {
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        border: none;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: scale(1.03);
+        box-shadow: 0 5px 20px rgba(0, 170, 255, 0.4);
+    }
+
+    .alert-info {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #1a1a1a;
+        font-weight: 500;
+    }
+
+    .alert-danger, .alert-success {
+        font-weight: 600;
+    }
+
+    .view-report-btn {
+        border: 2px solid white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        background: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .view-report-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #00d5ff;
+        border-color: #00d5ff;
+    }
+</style>
+
+<div class="overlay-wrapper">
+    <div class="background-overlay">
+
+        <h2>📂 Upload Sleep Data for Prediction</h2>
+
+        <form action="{{ url_for('admin_dashboard') }}" method="POST" enctype="multipart/form-data"
+              class="glass-card mx-auto" style="max-width: 700px;">
+            
+            <div class="mb-3">
+                <label for="patient_id" class="form-label">Patient ID:</label>
+                <input type="text" name="patient_id" id="patient_id" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="patient_name" class="form-label">Patient Name:</label>
+                <input type="text" name="patient_name" id="patient_name" class="form-control" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="csv_file" class="form-label">
+                    Select CSV File
+                    <small class="text-light d-block">(Required: start_time, end_time, heart_rate, spo2)</small>
+                </label>
+                <input type="file" name="csv_file" id="csv_file" class="form-control" accept=".csv" required>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Upload & Predict</button>
+            </div>
+        </form>
+
+        {% if prediction_result %}
+            <div class="alert alert-info text-center mt-4">
+                <h5>{{ prediction_result }}</h5>
+            </div>
+        {% endif %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mt-4">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('report') }}" class="view-report-btn">📊 View Full Report</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

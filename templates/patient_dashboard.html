@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-3">Patient Dashboard</h2>
+    <p class="text-center">Welcome {{ patient_name }}!</p>
+
+    <!-- 🔗 Logout -->
+    <div class="text-center mb-4">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger mx-2">Logout</a>
+    </div>
+
+    <!-- 📊 Report Section -->
+    <div class="card p-4 shadow mb-4">
+        <h5 class="mb-3">My Sleep Report</h5>
+
+        {% if has_report %}
+            <div class="alert alert-success text-center">
+                ✅ Report is available for you.
+            </div>
+            <div class="text-center">
+                <a href="{{ url_for('report') }}" class="btn btn-info">📈 View My Health Report</a>
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center">
+                ⚠️ No report available yet. Please contact your doctor.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

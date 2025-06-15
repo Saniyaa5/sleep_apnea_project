@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    h2 {
+        color: #00c6ff;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-group-custom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .btn-admin-login, .btn-admin-register,
+    .btn-patient-login, .btn-patient-register {
+        padding: 10px 25px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-admin-login, .btn-admin-register {
+        background-color: #28a745;
+    }
+
+    .btn-patient-login, .btn-patient-register {
+        background-color: #007bff;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+    }
+  </style>
+
+  <h2>Welcome to the Smart Sleep Apnea Detection System</h2>
+
+  <div class="btn-group-custom">
+    <a href="{{ url_for('login', role='admin') }}" class="btn btn-admin-login">Admin Login</a>
+    <a href="{{ url_for('register', role='admin') }}" class="btn btn-admin-register">Admin Register</a>
+    <a href="{{ url_for('login', role='patient') }}" class="btn btn-patient-login">Patient Login</a>
+    <a href="{{ url_for('register', role='patient') }}" class="btn btn-patient-register">Patient Register</a>
+  </div>
+{% endblock %}

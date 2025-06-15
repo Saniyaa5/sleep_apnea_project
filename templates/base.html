@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sleep Apnea Detection</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/index_image.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background 0.5s ease-in-out;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #00c6ff;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .btn-admin-login, .btn-admin-register {
+            background-color: #28a745;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn-patient-login, .btn-patient-register {
+            background-color: #007bff;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+
+        .alert {
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Flash Messages -->
+<div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Centered Glass Card Content -->
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="glass-card text-center px-4 py-5" style="width: 90%; max-width: 700px;">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

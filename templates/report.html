@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Report</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        canvas {
+            background-color: #222;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .summary-box {
+            background-color: #222;
+            padding: 15px;
+            border-left: 5px solid #0f0;
+            margin-bottom: 30px;
+        }
+        .print-btn {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .print-btn button {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 👤 Patient Info -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white"><strong>👤 Patient Details</strong></div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{ patient.name }}</p>
+            <p><strong>Age:</strong> {{ patient.age }}</p>
+            <p><strong>Sex:</strong> {{ patient.sex }}</p>
+            <p><strong>Marital Status:</strong> {{ patient.marital_status }}</p>
+            <p><strong>Weight:</strong> {{ patient.weight }} kg</p>
+            <p><strong>Email:</strong> {{ patient.email }}</p>
+            <p><strong>Phone:</strong> {{ patient.phone }}</p>
+        </div>
+    </div>
+
+    <!-- 🩺 Apnea Prediction Summary -->
+    {% if session['role'] in ['admin', 'patient'] %}
+    <div class="summary-box">
+        <h4>🩺 Prediction Summary:</h4>
+        <p>{{ apnea_summary }}</p>
+    </div>
+    {% endif %}
+
+    <!-- 📈 Heart Rate Chart -->
+    <div class="section">
+        <h3>Heart Rate Chart</h3>
+        <canvas id="heartRateChart" width="1000" height="300"></canvas>
+    </div>
+
+    <!-- 📈 SpO2 Chart -->
+    <div class="section">
+        <h3>SpO₂ Chart</h3>
+        <canvas id="spo2Chart" width="1000" height="300"></canvas>
+    </div>
+
+    <!-- 📈 Combined Chart -->
+    <div class="section">
+        <h3>Combined Chart</h3>
+        <canvas id="combinedChart" width="1000" height="300"></canvas>
+    </div>
+
+    <!-- 🖨️ Print Button for All Roles -->
+    <div class="print-btn">
+        <button onclick="window.print()">🖨️ Print This Report</button>
+    </div>
+
+    <!-- 📊 Chart.js Script -->
+    <script>
+        const labels = {{ labels | tojson }};
+        const heartRate = {{ heart_rate | tojson }};
+        const spo2 = {{ spo2 | tojson }};
+
+        const zoomOptions = {
+            pan: { enabled: true, mode: 'x' },
+            zoom: {
+                wheel: { enabled: true },
+                pinch: { enabled: true },
+                mode: 'x'
+            }
+        };
+
+        const commonOptions = {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: 'white' } },
+                zoom: zoomOptions
+            },
+            scales: {
+                x: { ticks: { color: 'white' } },
+                y: { ticks: { color: 'white' } }
+            }
+        };
+
+        new Chart(document.getElementById('heartRateChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Heart Rate (bpm)',
+                    data: heartRate,
+                    borderColor: 'lime',
+                    borderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: commonOptions
+        });
+
+        new Chart(document.getElementById('spo2Chart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'SpO₂ (%)',
+                    data: spo2,
+                    borderColor: 'cyan',
+                    borderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: commonOptions
+        });
+
+        new Chart(document.getElementById('combinedChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Heart Rate (bpm)',
+                        data: heartRate,
+                        borderColor: 'lime',
+                        borderWidth: 2,
+                        tension: 0.3
+                    },
+                    {
+                        label: 'SpO₂ (%)',
+                        data: spo2,
+                        borderColor: 'cyan',
+                        borderWidth: 2,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: commonOptions
+        });
+    </script>
+</body>
+</html>
