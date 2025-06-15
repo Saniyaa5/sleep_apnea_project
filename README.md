@@ -1,92 +1,103 @@
 🩺 Sleep Apnea Detection System
 
-A smart and interactive web-based dashboard to detect and monitor sleep apnea using physiological data such as heart rate and SpO₂ levels. Built using Python Flask and deployed on Render.
+A smart and interactive web-based dashboard to detect and monitor Sleep Apnea using physiological data such as Heart Rate (HR) and SpO₂ levels.
+Built using Python Flask and deployed using Render and Railway (alternative).
 
-📌 Table of Contents
+📑 Table of Contents
 
-1. [Features] 
-2. [Tech Stack] 
-3. [Model Info] 
-4. [Installation] 
-5. [Render Deployment] 
-6. [Status]
-
+1. 🚀 Features
+2. 🛠️ Tech Stack
+3. 📊 Model Info
+4. 🧪 Installation
+5. 🌐 Deployment Guide
+6. 📌 Project Status
 
 1. 🚀 Features
 
- 👤 Admin and Patient login/register system
- 📤 Upload and analyze CSV data (HR & SpO₂)
- 📈 Real-time graph generation using Chart.js
- 🧠 Naive Bayes ML model for apnea prediction
- 📊 Interactive dashboards with zoom & pan
- 🖨️ Printable patient reports
- 📱 Smartwatch data integration (Phase-II)
- ☁️ Cloud health record storage (Phase-II)
+👤 Admin and Patient Login/Register system
+📤 Upload and analyze CSV data (Heart Rate & SpO₂)
+📈 Real-time interactive graphs using Chart.js
+🧠 Naive Bayes ML model for apnea prediction
+📊 Role-based Dashboards (Admin & Patient)
+🖨️ Printable Patient Reports
+📱 Smartwatch data integration (Planned in Phase II)
+☁️ Cloud health record storage (Planned in Phase II)
 
 2. 🛠️ Tech Stack
 
-    Frontend: HTML5, CSS3, Bootstrap 5, Chart.js
-    Backend: Python, Flask, SQLAlchemy
-    Database: SQLite
-    ML Model: Naive Bayes Classifier
-    Deployment:  Render
+Frontend: HTML5, CSS3, Bootstrap 5, Chart.js
+Backend: Python, Flask, Flask-SQLAlchemy
+Database: SQLite
+ML Model: Naive Bayes Classifier
+Deployment: Render, Railway
 
 3. 📊 Model Info
 
 Algorithm: Naive Bayes
-Accuracy: 75.96%`
+Accuracy: 75.96%
 Input Features: Heart Rate (bpm), SpO₂ (%)
-Trained In: `train_model.ipynb`
+Training Notebook: `train_model.ipynb`
 
 4. 🧪 Installation
 
-    1. Clone the repository 
+Step 1: Clone the repository
 
-    git clone https://github.com/yourusername/Final_sleep_apnea_project.git
-    cd Final_sleep_apnea_project
+git clone https://github.com/yourusername/Final_sleep_apnea_project.git
+cd Final_sleep_apnea_project
 
-    2. Create virtual environment
+Step 2: Create virtual environment
 
-    python -m venv venv
-    source venv/bin/activate  # or venv\Scripts\activate on Windows
+python -m venv venv
+source venv/bin/activate     # For Linux/macOS  
+venv\Scripts\activate        # For Windows
 
-    3. Install dependencies
-    
-    pip install -r requirements.txt
+Step 3: Install dependencies
 
-    4. Run the application
+pip install -r requirements.txt
 
-    python app.py
+Step 4: Run the application
+
+python app.py
+ 
+Then open: `http://127.0.0.1:5000` in your browser.
+
+5. 🌐 Deployment Guide
+
+Render Deployment (Free Cloud Hosting)
+
+1. Push your code to GitHub
+
+2. Create a `render.yaml` file in the root directory:
+
+services:
+  - type: web
+    name: sleep-apnea-detector
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    plan: free
+    autoDeploy: true
+
+3. Go to [https://render.com](https://render.com)
+   Click “New Web Service”
+   Connect your GitHub repository
+   It auto-detects render.yaml and deploys your app
+
+Alternative: You can also deploy on [Railway](https://railway.app) by linking the GitHub repo and choosing Python as the runtime.
+
+6. 📌 Project Status
+
+Currently in Development
+
+Phase I:
+✔️ Functional Admin/Patient login
+✔️ ML-based apnea prediction using HR & SpO₂
+✔️ Dashboard with real-time visualizations
+✔️ CSV upload and printable patient report
+
+Phase II (Planned):
+📱 Smartwatch integration for real-time vitals
+☁️ Cloud-based patient health records
+🧾 Enhanced reporting with health summaries & alerts
 
 
-5. 🌐 Render Deployment
-
-    This project is deployable for free using Render
-
-    1. Push Code to GitHub
-
-    2. Add this render.yaml file to root:
-        services:
-        - type: web
-            name: sleep-apnea-detector
-            env: python
-            buildCommand: "pip install -r requirements.txt"
-            startCommand: "python app.py"
-            plan: free
-            autoDeploy: true
-
-    3. Deploy
-
-        Go to https://render.com
-
-        Click New Web Service
-
-        Connect your GitHub Repo
-
-        Render auto-detects render.yaml and deploys 🎉
-
-6. 📌 Status
-
-    🚧 This project is currently under active development.
-
-    Future goals include smartwatch data integration, Enable cloud-based storage of patient health records and Generate visual health reports including vital trends and apnea predictions.
